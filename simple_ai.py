@@ -2,19 +2,18 @@ from keras.models import load_model  # TensorFlow is required for Keras to work
 import cv2  # Install opencv-python
 import numpy as np
 
-# Disable scientific notation for clarity
-np.set_printoptions(suppress=True)
+def image_detector():
+    # Disable scientific notation for clarity
+    np.set_printoptions(suppress=True)
 
-# Load the model
-model = load_model("converted_keras/keras_model.h5", compile=False)
+    # Load the model
+    model = load_model("converted_keras/keras_model.h5", compile=False)
 
-# Load the labels
-class_names = open("converted_keras/labels.txt", "r").readlines()
+    # Load the labels
+    class_names = open("converted_keras/labels.txt", "r").readlines()
 
-# CAMERA can be 0 or 1 based on default camera of your computer
-camera = cv2.VideoCapture(0)
-
-while True:
+    # CAMERA can be 0 or 1 based on default camera of your computer
+    camera = cv2.VideoCapture(0)
     # Grab the webcamera's image.
     ret, image = camera.read()
 
@@ -42,10 +41,4 @@ while True:
 
     # Listen to the keyboard for presses.
     keyboard_input = cv2.waitKey(1)
-
-    # 27 is the ASCII for the esc key on your keyboard.
-    if keyboard_input == 27:
-        break
-
-camera.release()
-cv2.destroyAllWindows()
+    return class_name[2:]
